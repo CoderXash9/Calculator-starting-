@@ -1,69 +1,60 @@
-# 🧮 Calculator App
+# 🧮 PureCalc
 
-![Made with Python](https://img.shields.io/badge/Made%20with-Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![GitHub repo size](https://img.shields.io/github/repo-size/CoderXash9/PureCalc?style=for-the-badge)
-![GitHub license](https://img.shields.io/github/license/CoderXash9/PureCalc?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/CoderXash9/PureCalc?style=for-the-badge)
-
-
-
+![GitHub Repo stars](https://img.shields.io/github/stars/CoderXash9/PureCalc?style=for-the-badge&logo=github)
+![GitHub forks](https://img.shields.io/github/forks/CoderXash9/PureCalc?style=for-the-badge&logo=git)
+![GitHub last commit](https://img.shields.io/github/last-commit/CoderXash9/PureCalc?style=for-the-badge&color=brightgreen)
+![Repo size](https://img.shields.io/github/repo-size/CoderXash9/PureCalc?style=for-the-badge)
 ![Contributions welcome](https://img.shields.io/badge/Contributions-welcome-brightgreen?style=for-the-badge)
 ![Open Source Love](https://img.shields.io/badge/Open%20Source-%E2%9D%A4-red?style=for-the-badge)
 
+---
 
+## ✨ Overview
 
-# 🧮 Calculator Project
+**PureCalc** is a sleek, minimal, and modern **web-based calculator** built using  
+💻 **HTML**, 🎨 **CSS**, and ⚡ **JavaScript**.  
 
-A simple web-based calculator built using **HTML**, **CSS**, and **JavaScript**.  
-This project performs basic arithmetic operations like addition, subtraction, multiplication, and division.
+It performs basic arithmetic operations with:
+- Dark/Light Mode toggle 🌗  
+- Sound effects 🔊  
+- Settings modal ⚙️  
+- Keyboard support ⌨️  
+- Accessibility features ♿  
+- Fully responsive design 📱  
 
 ---
 
 ## 🚀 Live Demo
-👉 https://coderxash9.github.io/PureCalc/
+
+🔗 [**Click here to use PureCalc on GitHub Pages**](https://coderxash9.github.io/PureCalc/)
 
 ---
 
 ## 🧠 Features
-- Clean UI
-- Basic arithmetic operations
-- Responsive design
-- Error handling for invalid input
+
+- 🧮 Perform addition, subtraction, multiplication, and division  
+- 🌗 Toggle between **Dark/Light Mode**  
+- 🔊 Enable or disable **button click sounds**  
+- ⚙️ Customize **font size** via Settings  
+- ⌨️ Use full **keyboard input support**  
+- ♿ Accessibility Ready (ARIA attributes, high contrast)  
+- 💾 **LocalStorage** support for saving preferences  
 
 ---
 
-## 🧰 Technologies Used
-- HTML5
-- CSS3
-- JavaScript (ES6)
+## 🧰 Tech Stack
+
+| Technology | Description |
+|-------------|-------------|
+| **HTML5** | Structure of the calculator |
+| **CSS3** | Styling, animations, and themes |
+| **JavaScript (ES6)** | Calculator logic and interactivity |
+| **LocalStorage API** | Saves user preferences |
 
 ---
 
-## 🏃‍♂️ How to Run Locally
-1. Clone this repository:
+## 🏃‍♂️ Run Locally
+
+1. **Clone this repository**
    ```bash
-   git clone https://github.com/CoderXash9/Calculator-starting-.git
-
-
----
-
-## 🌐 2. Run your calculator *directly from GitHub*
-
-You can make it **live online** using **GitHub Pages** (free hosting for your web projects):
-
-### Steps:
-1. Go to your repository on GitHub.
-2. Click on the **Settings** tab (top bar).
-3. Scroll down to **Pages** (left sidebar).
-4. Under **“Source”**, choose:
-
-5. Click **Save**.
-
-After a minute or two, your live site will be available at:  
-👉 `https://coderxash9.github.io/Calculator-starting-/`
-
----
-
-Would you like me to write you a **beautiful README.md** file with emojis, sections, and a preview image setup (so it looks professional)?  
-I can make it ready for you to just copy-paste into GitHub.
-
+   git clone https://github.com/CoderXash9/PureCalc.git
