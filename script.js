@@ -1,79 +1,41 @@
-* {
-  box-sizing: border-box;
-}
+const display = document.getElementById("display");
+const buttons = document.querySelectorAll(".btn");
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #121212;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-}
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => handleInput(btn.dataset.key));
+});
 
-.calculator {
-  background: #1e1e1e;
-  border-radius: 16px;
-  padding: 20px;
-  width: 320px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-}
+document.addEventListener("keydown", (e) => {
+  const validKeys = "0123456789+-*/.=EnterBackspace";
+  if (validKeys.includes(e.key)) {
+    e.preventDefault();
+    if (e.key === "Enter") handleInput("=");
+    else if (e.key === "Backspace") handleInput("DEL");
+    else handleInput(e.key);
+  }
+});
 
-h1 {
-  text-align: center;
-  margin-bottom: 15px;
-  color: #00c6ff;
-}
+function handleInput(key) {
+  let current = display.value;
 
-.display input {
-  width: 100%;
-  font-size: 2rem;
-  padding: 10px;
-  text-align: right;
-  border: none;
-  border-radius: 8px;
-  background: #000;
-  color: #0f0;
-  outline: none;
-}
+  switch (key) {
+    case "C":
+      display.value = "0";
+      break;
+    case "DEL":
+      display.value = current.length > 1 ? current.slice(0, -1) : "0";
+      break;
+    case "=":
+      try {
+        display.value = eval(current) || "0";
+      } catch {
+        display.value = "Error";
+      }
+      break;
+    default:
+      display.value = current === "0" ? key : current + key;
+  }
 
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.btn {
-  padding: 15px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 8px;
-  background: #333;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn:hover,
-.btn:focus {
-  background: #00c6ff;
-  color: #000;
-  outline: 2px solid #fff;
-}
-
-.equal {
-  background: #00c6ff;
-  color: #000;
-  grid-row: span 2;
-}
-
-.zero {
-  grid-column: span 2;
-}
-
-.btn:active {
-  transform: scale(0.97);
+  // Announce the update for screen readers
+  display.setAttribute("aria-label", `Display value is ${display.value}`);
 }
