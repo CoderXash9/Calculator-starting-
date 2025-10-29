@@ -18,7 +18,7 @@ This project performs basic arithmetic operations like addition, subtraction, mu
 ---
 
 ## 🚀 Live Demo
-👉 [Click here to view on GitHub Pages](https://coderxash9.github.io/Calculator-starting-/)
+👉 https://coderxash9.github.io/PureCalc/
 
 ---
 
