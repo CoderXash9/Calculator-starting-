@@ -22,11 +22,6 @@ This project performs basic arithmetic operations like addition, subtraction, mu
 
 ---
 
-## 📂 Project Structure
-
-
----
-
 ## 🧠 Features
 - Clean UI
 - Basic arithmetic operations
