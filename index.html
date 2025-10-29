@@ -3,32 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simple Calculator</title>
+  <title>PureCalc - Accessible Calculator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="calculator">
-    <input type="text" id="display" disabled />
-    <div class="buttons">
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
-        <button>/</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button>*</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>-</button>
-        <button>0</button>
-        <button>.</button>
-        <button>=</button>
-        <button>+</button>
-        <button>C</button>
+  <main class="calculator" role="region" aria-label="Simple calculator">
+    <h1>PureCalc</h1>
+
+    <div class="display" role="textbox" aria-live="polite" aria-label="Calculator display">
+      <input type="text" id="display" value="0" readonly />
     </div>
-  </div>
+
+    <div class="buttons" role="group" aria-label="Calculator buttons">
+      <button class="btn" aria-label="Clear" data-key="C">C</button>
+      <button class="btn" aria-label="Divide" data-key="/">÷</button>
+      <button class="btn" aria-label="Multiply" data-key="*">×</button>
+      <button class="btn" aria-label="Delete" data-key="DEL">DEL</button>
+
+      <button class="btn" data-key="7">7</button>
+      <button class="btn" data-key="8">8</button>
+      <button class="btn" data-key="9">9</button>
+      <button class="btn" aria-label="Subtract" data-key="-">−</button>
+
+      <button class="btn" data-key="4">4</button>
+      <button class="btn" data-key="5">5</button>
+      <button class="btn" data-key="6">6</button>
+      <button class="btn" aria-label="Add" data-key="+">+</button>
+
+      <button class="btn" data-key="1">1</button>
+      <button class="btn" data-key="2">2</button>
+      <button class="btn" data-key="3">3</button>
+      <button class="btn equal" aria-label="Equals" data-key="=">=</button>
+
+      <button class="btn zero" data-key="0">0</button>
+      <button class="btn" data-key=".">.</button>
+    </div>
+  </main>
 
   <script src="script.js"></script>
 </body>
