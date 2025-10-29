@@ -3,42 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PureCalc - Accessible Calculator</title>
+  <title>PureCalc</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="calculator" role="region" aria-label="Simple calculator">
+  <header class="top-bar">
     <h1>PureCalc</h1>
 
-    <div class="display" role="textbox" aria-live="polite" aria-label="Calculator display">
-      <input type="text" id="display" value="0" readonly />
-    </div>
+    <!-- 🌗 Theme Toggle -->
+    <button 
+      id="theme-toggle"
+      class="theme-toggle"
+      aria-label="Toggle dark or light mode"
+      aria-pressed="false">
+      <span class="toggle-thumb"></span>
+      <span class="toggle-icon sun">☀️</span>
+      <span class="toggle-icon moon">🌙</span>
+    </button>
 
-    <div class="buttons" role="group" aria-label="Calculator buttons">
-      <button class="btn" aria-label="Clear" data-key="C">C</button>
-      <button class="btn" aria-label="Divide" data-key="/">÷</button>
-      <button class="btn" aria-label="Multiply" data-key="*">×</button>
-      <button class="btn" aria-label="Delete" data-key="DEL">DEL</button>
+    <!-- ⚙️ Settings Button -->
+    <button id="open-settings" class="open-settings" aria-label="Open settings">⚙️</button>
+  </header>
+
+  <!-- 🧮 Calculator -->
+  <main class="calculator">
+    <input type="text" id="display" value="0" readonly aria-label="Calculator display" />
+    <div class="buttons">
+      <button class="btn" data-key="C">C</button>
+      <button class="btn" data-key="DEL">DEL</button>
+      <button class="btn" data-key="/">÷</button>
+      <button class="btn" data-key="*">×</button>
 
       <button class="btn" data-key="7">7</button>
       <button class="btn" data-key="8">8</button>
       <button class="btn" data-key="9">9</button>
-      <button class="btn" aria-label="Subtract" data-key="-">−</button>
+      <button class="btn" data-key="-">−</button>
 
       <button class="btn" data-key="4">4</button>
       <button class="btn" data-key="5">5</button>
       <button class="btn" data-key="6">6</button>
-      <button class="btn" aria-label="Add" data-key="+">+</button>
+      <button class="btn" data-key="+">+</button>
 
       <button class="btn" data-key="1">1</button>
       <button class="btn" data-key="2">2</button>
       <button class="btn" data-key="3">3</button>
-      <button class="btn equal" aria-label="Equals" data-key="=">=</button>
+      <button class="btn equal" data-key="=">=</button>
 
       <button class="btn zero" data-key="0">0</button>
       <button class="btn" data-key=".">.</button>
     </div>
   </main>
+
+  <!-- ⚙️ Settings Modal -->
+  <div id="settings-modal" class="modal" role="dialog" aria-labelledby="settings-title" aria-modal="true">
+    <div class="modal-content">
+      <h2 id="settings-title">⚙️ Settings</h2>
+
+      <div class="setting-option">
+        <label>
+          <input type="checkbox" id="sound-toggle">
+          Enable Button Sound
+        </label>
+      </div>
+
+      <div class="setting-option">
+        <label for="font-size">Font Size</label>
+        <select id="font-size">
+          <option value="small">Small</option>
+          <option value="medium" selected>Medium</option>
+          <option value="large">Large</option>
+        </select>
+      </div>
+
+      <button id="reset-preferences" class="reset-btn">Reset Preferences</button>
+      <button id="close-modal" class="close-btn" aria-label="Close settings">Close</button>
+    </div>
+  </div>
+
+  <!-- 🔊 Click Sound -->
+  <audio id="click-sound" src="click.mp3" preload="auto"></audio>
 
   <script src="script.js"></script>
 </body>
