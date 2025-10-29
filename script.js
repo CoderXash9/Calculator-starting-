@@ -1,197 +1,114 @@
-:root {
-  --bg: #0d1117;
-  --text: #ffffff;
-  --btn-bg: #161b22;
-  --accent: #58a6ff;
+const display = document.getElementById("display");
+const buttons = document.querySelectorAll(".btn");
+const themeToggle = document.getElementById("theme-toggle");
+const clickSound = document.getElementById("click-sound");
+
+// Load saved theme
+if (localStorage.getItem("theme") === "light") {
+  document.body.classList.add("light");
+  themeToggle.setAttribute("aria-pressed", "true");
 }
 
-body.light {
-  --bg: #f7f7f7;
-  --text: #222;
-  --btn-bg: #ffffff;
-  --accent: #0066ff;
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (localStorage.getItem("sound") === "on") {
+      clickSound.currentTime = 0;
+      clickSound.play();
+    }
+    handleInput(btn.dataset.key);
+  });
+});
+
+document.addEventListener("keydown", (e) => {
+  const validKeys = "0123456789+-*/.=EnterBackspace";
+  if (validKeys.includes(e.key)) {
+    e.preventDefault();
+    if (localStorage.getItem("sound") === "on") {
+      clickSound.currentTime = 0;
+      clickSound.play();
+    }
+    if (e.key === "Enter") handleInput("=");
+    else if (e.key === "Backspace") handleInput("DEL");
+    else handleInput(e.key);
+  }
+});
+
+function handleInput(key) {
+  let current = display.value;
+
+  switch (key) {
+    case "C":
+      display.value = "0";
+      break;
+    case "DEL":
+      display.value = current.length > 1 ? current.slice(0, -1) : "0";
+      break;
+    case "=":
+      try {
+        display.value = eval(current) || "0";
+      } catch {
+        display.value = "Error";
+      }
+      break;
+    default:
+      display.value = current === "0" ? key : current + key;
+  }
+
+  display.setAttribute("aria-label", `Display value is ${display.value}`);
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Poppins', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  transition: background 0.5s ease, color 0.5s ease;
+// 🌗 Theme Toggle
+themeToggle.addEventListener("click", () => {
+  const isLight = document.body.classList.toggle("light");
+  themeToggle.setAttribute("aria-pressed", isLight);
+  localStorage.setItem("theme", isLight ? "light" : "dark");
+});
+
+// ⚙️ Settings Modal Logic
+const openSettings = document.getElementById("open-settings");
+const closeModal = document.getElementById("close-modal");
+const modal = document.getElementById("settings-modal");
+const soundToggle = document.getElementById("sound-toggle");
+const fontSizeSelect = document.getElementById("font-size");
+const resetBtn = document.getElementById("reset-preferences");
+
+// Load preferences
+if (localStorage.getItem("sound") === "on") soundToggle.checked = true;
+if (localStorage.getItem("fontSize")) {
+  document.body.style.fontSize = localStorage.getItem("fontSize");
+  fontSizeSelect.value = localStorage.getItem("fontSizeLabel") || "medium";
 }
 
-.top-bar {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  position: relative;
-}
+// Open/close modal
+openSettings.addEventListener("click", () => modal.classList.add("show"));
+closeModal.addEventListener("click", () => modal.classList.remove("show"));
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) modal.classList.remove("show");
+});
 
-h1 {
-  font-size: 1.8rem;
-}
+// Sound toggle
+soundToggle.addEventListener("change", () => {
+  localStorage.setItem("sound", soundToggle.checked ? "on" : "off");
+});
 
-/* 🌗 Animated Theme Toggle */
-.theme-toggle {
-  position: relative;
-  width: 60px;
-  height: 30px;
-  border-radius: 30px;
-  background: var(--btn-bg);
-  border: 2px solid var(--accent);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 6px;
-  overflow: hidden;
-  transition: background 0.4s ease, border-color 0.4s ease;
-}
+// Font size
+fontSizeSelect.addEventListener("change", () => {
+  let size;
+  switch (fontSizeSelect.value) {
+    case "small": size = "14px"; break;
+    case "medium": size = "16px"; break;
+    case "large": size = "18px"; break;
+  }
+  document.body.style.fontSize = size;
+  localStorage.setItem("fontSize", size);
+  localStorage.setItem("fontSizeLabel", fontSizeSelect.value);
+});
 
-.toggle-thumb {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: var(--accent);
-  transition: transform 0.4s ease;
-  z-index: 1;
-}
-
-.toggle-icon {
-  font-size: 1.1rem;
-  z-index: 2;
-  transition: opacity 0.3s ease;
-}
-
-.theme-toggle .sun { opacity: 1; color: #fcd440; }
-.theme-toggle .moon { opacity: 0; color: #00bfff; }
-
-body.light .theme-toggle .toggle-thumb {
-  transform: translateX(30px);
-}
-
-body.light .theme-toggle .sun { opacity: 0; }
-body.light .theme-toggle .moon { opacity: 1; }
-
-/* 🧮 Calculator Layout */
-.calculator {
-  background: var(--btn-bg);
-  padding: 1.5rem;
-  border-radius: 20px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.3);
-  width: 300px;
-  margin-top: 2rem;
-}
-
-#display {
-  width: 100%;
-  font-size: 2rem;
-  text-align: right;
-  border: none;
-  padding: 1rem;
-  border-radius: 10px;
-  margin-bottom: 1rem;
-  color: var(--text);
-  background: var(--bg);
-}
-
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.8rem;
-}
-
-.btn {
-  padding: 1rem;
-  border: none;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  background: var(--accent);
-  color: var(--bg);
-  transition: transform 0.1s ease, opacity 0.3s ease, box-shadow 0.2s ease;
-}
-
-.btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent); }
-.btn:active { transform: scale(0.95); }
-.zero { grid-column: span 2; }
-.equal { background: #28a745; }
-
-/* ⚙️ Settings Button */
-.open-settings {
-  background: var(--btn-bg);
-  border: 2px solid var(--accent);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.open-settings:hover { transform: rotate(30deg); }
-
-/* ⚙️ Modal Styles */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal.show { display: flex; }
-
-.modal-content {
-  background: var(--bg);
-  color: var(--text);
-  border-radius: 20px;
-  padding: 2rem;
-  width: 300px;
-  text-align: left;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-  animation: slideDown 0.4s ease forwards;
-}
-
-@keyframes slideDown {
-  from { transform: translateY(-30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.setting-option {
-  margin: 1rem 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.setting-option select {
-  margin-top: 0.5rem;
-  padding: 0.4rem;
-  border-radius: 8px;
-  border: 1px solid var(--accent);
-  background: var(--btn-bg);
-  color: var(--text);
-}
-
-.reset-btn, .close-btn {
-  background: var(--accent);
-  color: var(--bg);
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: opacity 0.3s ease;
-}
-
-.reset-btn:hover, .close-btn:hover { opacity: 0.8; }
+// Reset preferences
+resetBtn.addEventListener("click", () => {
+  localStorage.clear();
+  document.body.style.fontSize = "16px";
+  soundToggle.checked = false;
+  fontSizeSelect.value = "medium";
+  alert("Preferences reset successfully!");
+});
